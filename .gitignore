@@ -9,6 +9,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
+bun-debug.log*
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -137,6 +138,14 @@ dist
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# bun
+bun.lockb
+bun.lock
+.bun-macros/
+.bun-cache/
+bun.lockb
+bun.lock
 
 # Vite logs files
 vite.config.js.timestamp-*

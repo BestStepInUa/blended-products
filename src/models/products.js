@@ -1,26 +1,34 @@
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose';
 
-const productShema = new Schema({
-  name:{
-    type: String,
-    required:true,
-    trim: true
-  },
-  price:{
-    type: Number,
-    required:true,
-  },
-  category:{
-    type: String,
-    enum: ['books', 'electronics', 'clothing', 'other'],
-    default: "other",
-  },
-  description:{
-    type: String,
-  }
-}, {
-  timestamps:true,
-  versionKey:false,
-});
+import { CATEGORIES } from '../constants/category.js';
 
-export const Product = model('Product',productShema);
+const productShema = new Schema(
+  {
+    name: {
+      type: String,
+      minLength: 5,
+      maxLength: 30,
+      required: true,
+      trim: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
+    category: {
+      type: String,
+      enum: CATEGORIES,
+      default: 'other',
+    },
+    description: {
+      type: String,
+      maxLength: 300,
+    },
+  },
+  {
+    timestamps: true,
+    versionKey: false,
+  },
+);
+
+export const Product = model('Product', productShema);
