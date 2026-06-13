@@ -21,6 +21,11 @@ const productSchema = new Schema(
       enum: CATEGORIES,
       default: 'other',
     },
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+      required: true,
+    },
     description: {
       type: String,
       maxLength: 300,

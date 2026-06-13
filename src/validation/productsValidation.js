@@ -3,7 +3,7 @@ import { isValidObjectId } from 'mongoose';
 
 import { CATEGORIES } from '../constants/category.js';
 
-import { productSortFields } from '../models/products.js';
+import { productSortFields } from '../models/product.js';
 
 const objectIdValidator = (value, helpers) => {
   return isValidObjectId(value)

@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import { celebrate } from 'celebrate';
 
+import { authenticate } from '../middleware/authenticate.js';
+
 import {
   createProduct,
   deleteProduct,
@@ -17,6 +19,8 @@ import {
 } from '../validation/productsValidation.js';
 
 const productRouter = Router();
+
+productRouter.use('/products', authenticate);
 
 productRouter.get('/products', celebrate(getAllProductsSchema), getAllProducts);
 productRouter.get(
