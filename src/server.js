@@ -11,7 +11,8 @@ import helmet from 'helmet';
 import { errors } from 'celebrate';
 import logger from './middlewares/logger.js';
 import { connectMongoDB } from './db/connectMongoDB.js';
-import productsRoutes from './routes/productRoutes.js';
+import productRouter from './routers/productRoutes.js';
+import authRouter from './routers/authRoutes.js';
 
 import 'dotenv/config';
 
@@ -22,7 +23,8 @@ app.use(express.json());
 app.use(cors());
 app.use(helmet());
 
-app.use(productsRoutes);
+app.use(authRouter);
+app.use(productRouter);
 
 app.use(notFoundHandler);
 app.use(errors());

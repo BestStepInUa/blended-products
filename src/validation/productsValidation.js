@@ -3,6 +3,8 @@ import { isValidObjectId } from 'mongoose';
 
 import { CATEGORIES } from '../constants/category.js';
 
+import { productSortFields } from '../models/products.js';
+
 const objectIdValidator = (value, helpers) => {
   return isValidObjectId(value)
     ? value
@@ -26,6 +28,11 @@ export const getAllProductsSchema = {
     category: Joi.string().valid(...CATEGORIES),
     minPrice: Joi.number().positive(),
     maxPrice: Joi.number().positive(),
+    sortBy: Joi.string()
+      .valid(...productSortFields)
+      .default('price'),
+    sortOrder: Joi.string().valid('asc', 'desc').default('asc'),
+    search: Joi.string().allow(''),
   }),
 };
 

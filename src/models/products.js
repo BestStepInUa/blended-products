@@ -1,8 +1,9 @@
 import { Schema, model } from 'mongoose';
 
 import { CATEGORIES } from '../constants/category.js';
+import { handleMongooseError, setUpdateOptions } from './hooks.js';
 
-const productShema = new Schema(
+const productSchema = new Schema(
   {
     name: {
       type: String,
@@ -31,4 +32,10 @@ const productShema = new Schema(
   },
 );
 
-export const Product = model('Product', productShema);
+productSchema.post('save', handleMongooseError);
+productSchema.pre('findOneAndUpdate', setUpdateOptions);
+productSchema.post('findOneAndUpdate', handleMongooseError);
+
+export const productSortFields = Object.keys(productSchema.paths);
+
+export const Product = model('Product', productSchema);

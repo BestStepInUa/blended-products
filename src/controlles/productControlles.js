@@ -2,7 +2,16 @@ import createHttpError from 'http-errors';
 import { Product } from '../models/products.js';
 
 export const getAllProducts = async (req, res) => {
-  const { page, perPage, category, minPrice, maxPrice } = req.query;
+  const {
+    page = 1,
+    perPage = 10,
+    category,
+    minPrice,
+    maxPrice,
+    sortBy = 'price',
+    sortOrder = 'asc',
+    search,
+  } = req.query;
   const skip = (page - 1) * perPage;
   const productsQuery = Product.find();
   if (category) {
@@ -13,6 +22,18 @@ export const getAllProducts = async (req, res) => {
   }
   if (maxPrice) {
     productsQuery.where('price').lte(maxPrice);
+  }
+  if (search) {
+    productsQuery.where({
+      $or: [
+        { name: { $regex: search, $options: 'i' } },
+        { description: { $regex: search, $options: 'i' } },
+        { category: { $regex: search, $options: 'i' } },
+      ],
+    });
+  }
+  if (sortBy && sortOrder) {
+    productsQuery.sort({ [sortBy]: sortOrder });
   }
 
   const [totalProducts, products] = await Promise.all([
@@ -52,7 +73,6 @@ export const updateProducts = async (req, res) => {
       _id: productId,
     },
     req.body,
-    { returnDocument: 'after' },
   );
 
   if (!product) {
