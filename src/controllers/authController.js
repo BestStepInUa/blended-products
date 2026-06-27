@@ -73,7 +73,13 @@ export const refreshUserSession = async (req, res) => {
   const newSession = await createSession(session.userId);
   setSessionCookies(res, newSession);
 
-  res.status(200).json({ message: 'Session refreshed' });
+  res
+    .status(200)
+    .json({
+      status: 200,
+      message: 'Successfully refreshed a session!',
+      data: newSession.accessToken,
+    });
 };
 
 export const logoutUser = async (req, res) => {

@@ -9,7 +9,7 @@ import {
   getAllProducts,
   getProductById,
   updateProducts,
-} from '../controlles/productControlles.js';
+} from '../controllers/productControlles.js';
 
 import {
   productIdSchema,
