@@ -14,7 +14,7 @@ const USER_ID = '6a2d9287451377db5dabe869';
 const main = async () => {
   await connectMongoDB();
 
-  const filePath = path.resolve('./src/products.json');
+  const filePath = path.resolve('./src/db/products.json');
   const fileContent = await fs.readFile(filePath, 'utf8');
   const products = JSON.parse(fileContent);
 

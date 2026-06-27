@@ -43,4 +43,4 @@ productSchema.post('findOneAndUpdate', handleMongooseError);
 
 export const productSortFields = Object.keys(productSchema.paths);
 
-export const Product = model('Product', productSchema);
+export const Product = model('product', productSchema);

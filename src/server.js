@@ -8,6 +8,7 @@ import { errorHandler } from './middlewares/errorHandler.js';
 import notFoundHandler from './middlewares/notFoundHandler.js';
 import cors from 'cors';
 import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
 import { errors } from 'celebrate';
 import logger from './middlewares/logger.js';
 import { connectMongoDB } from './db/connectMongoDB.js';
@@ -22,6 +23,7 @@ app.use(logger);
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
+app.use(cookieParser());
 
 app.use(authRouter);
 app.use(productRouter);

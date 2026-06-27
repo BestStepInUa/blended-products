@@ -5,7 +5,12 @@ import {
   registerUserSchema,
   loginUserSchema,
 } from '../validation/authValidation.js';
-import { registerUser } from '../controlles/authController.js';
+import {
+  registerUser,
+  loginUser,
+  refreshUserSession,
+  logoutUser,
+} from '../controllers/authController.js';
 
 const authRouter = Router();
 
@@ -20,5 +25,9 @@ authRouter.post(
   celebrate(loginUserSchema, { abortEarly: false }),
   loginUser,
 );
+
+authRouter.post('/auth/refresh', refreshUserSession);
+
+authRouter.post('/auth/logout', logoutUser);
 
 export default authRouter;
