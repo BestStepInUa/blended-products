@@ -6,12 +6,16 @@ import { User } from '../models/user.js';
 export const authenticate = async (req, res, next) => {
   const { accessToken, sessionId } = req.cookies;
 
-  if (!accessToken) {
-    throw createHttpError(401, 'Missing access token');
-  }
+  // if (!accessToken) {
+  //   throw createHttpError(401, 'Missing access token');
+  // }
 
-  if (!sessionId) {
-    throw createHttpError(401, 'Missing session id');
+  // if (!sessionId) {
+  //   throw createHttpError(401, 'Missing session id');
+  // }
+
+  if (!sessionId || !accessToken) {
+    throw createHttpError(401, 'Missing session credentials');
   }
 
   const session = await Session.findOne({ _id: sessionId, accessToken });
@@ -25,7 +29,7 @@ export const authenticate = async (req, res, next) => {
 
   const user = await User.findById(session.userId);
   if (!user) {
-    throw createHttpError(401);
+    throw createHttpError(401, 'User not found');
   }
 
   req.user = user;

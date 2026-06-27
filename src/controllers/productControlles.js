@@ -51,10 +51,10 @@ export const getAllProducts = async (req, res) => {
 export const getProductById = async (req, res) => {
   const { _id: userId } = req.user;
   const { productId } = req.params;
-  const product = await Product.findById({ _id: productId, userId });
+  const product = await Product.findOne({ _id: productId, userId });
   if (!product) {
     return res.status(404).json({
-      message: `Product by id${productId} not found`,
+      message: `Product by id ${productId} not found`,
     });
   }
   res.status(200).json(product);
